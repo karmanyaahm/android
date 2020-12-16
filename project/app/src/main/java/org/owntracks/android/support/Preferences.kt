@@ -361,7 +361,8 @@ class Preferences @Inject constructor(@AppContext c: Context, private val eventB
 
     val pubTopicBase: String
         get() = pubTopicBaseFormatString.replace("%u", username).replace("%d", deviceId)
-
+    val pubTopicUserBase: String
+        get () = pubTopicBase.split("/")[:-1].joinToString(seperator = "/") // just take owntracks/%u and remove the /%d
     @get:Export(keyResId = R.string.preferenceKeySubTopic, exportModeMqtt = true)
     @set:Import(keyResId = R.string.preferenceKeySubTopic)
     var subTopic: String

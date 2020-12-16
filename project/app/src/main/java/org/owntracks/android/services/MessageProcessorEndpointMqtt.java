@@ -162,6 +162,10 @@ public class MessageProcessorEndpointMqtt extends MessageProcessorEndpoint imple
         public void messageArrived(String topic, MqttMessage message) {
             try {
                 MessageBase m = parser.fromJson(message.getPayload());
+                if (topic.startsWith(preferences.getpubTopicUserBase())){
+                    Timber.e("message from self");
+                    return;
+                }
                 if (!m.isValidMessage()) {
                     Timber.e("message failed validation");
                     return;
